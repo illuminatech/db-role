@@ -81,10 +81,10 @@ class InheritRoleTest extends TestCase
         $this->assertCount(1, $roleModels, 'No role model saved');
         $this->assertEquals($model->study_group_id, $roleModels[0]->study_group_id, 'Unable to save data for role model');
 
-        /*$model = Student::query()->where(['id' => $model->id])->first();
+        $model = Student::query()->where(['id' => $model->id])->first();
         $model->name = 'updated name';
         $model->save();
-        $this->assertFalse($model->relationLoaded('studentRole'), 'Role model saved, while its data not touched');*/
+        $this->assertFalse($model->relationLoaded('studentRole'), 'Role model saved, while its data not touched');
     }
 
     /**
@@ -138,10 +138,10 @@ class InheritRoleTest extends TestCase
         $roleModel = Human::query()->where(['id' => $model->human_id])->first();
         $this->assertEquals($model->name, $roleModel->name, 'Unable to save data for role model');
 
-        /*$model = Instructor::query()->where(['human_id' => $model->human_id])->first();
+        $model = Instructor::query()->where(['human_id' => $model->human_id])->first();
         $model->salary = 150;
         $model->save();
-        $this->assertFalse($model->relationLoaded('human'), 'Role model saved, while its data not touched');*/
+        $this->assertFalse($model->relationLoaded('human'), 'Role model saved, while its data not touched');
     }
 
     /**

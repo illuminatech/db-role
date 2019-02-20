@@ -180,7 +180,7 @@ trait InheritRole
      */
     public function setAttribute($key, $value)
     {
-        if ($key !== $this->getKeyName() && ! $this->resolvingRoleRelationModel) {
+        if ($this->allowAttributeForwardToRoleModel($key)) {
             $roleModel = $this->getRoleRelationModel();
 
             if (array_key_exists($key, $roleModel->getAttributes()) || in_array($key, $roleModel->getFillable(), true) || in_array($key, $roleModel->getGuarded(), true)) {
@@ -200,7 +200,7 @@ trait InheritRole
      */
     public function getAttribute($key)
     {
-        if ($key !== $this->getKeyName() && ! $this->resolvingRoleRelationModel) {
+        if ($this->allowAttributeForwardToRoleModel($key)) {
             $roleModel = $this->getRoleRelationModel();
 
             if (array_key_exists($key, $roleModel->getAttributes()) || $this->hasGetMutator($key)) {
@@ -224,7 +224,7 @@ trait InheritRole
      */
     public function offsetUnset($offset)
     {
-        if (! $this->resolvingRoleRelationModel) {
+        if ($this->allowAttributeForwardToRoleModel($offset)) {
             $this->getRoleRelationModel()->offsetUnset($offset);
         }
 
@@ -249,5 +249,20 @@ trait InheritRole
         }
 
         return parent::__call($method, $parameters);
+    }
+
+    /**
+     * Checks whether given name matching attribute of this model and thus should not be forwarded to role one.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    private function allowAttributeForwardToRoleModel($key): bool
+    {
+        if ($this->resolvingRoleRelationModel) {
+            return false;
+        }
+
+        return $key !== $this->getKeyName() && ! array_key_exists($key, $this->getAttributes()) && ! array_key_exists($key, $this->getRelations());
     }
 }
