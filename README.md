@@ -92,6 +92,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Human extends Model
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected $table = 'humans';
+    
     // ...
 }
 ```

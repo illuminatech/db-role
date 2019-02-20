@@ -67,20 +67,20 @@ class TestCase extends \PHPUnit\Framework\TestCase
         $this->getSchemaBuilder()->create('humans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('role');
-            $table->string('address');
+            $table->string('role')->nullable();
+            $table->string('address')->nullable();
         });
 
         $this->getSchemaBuilder()->create('students', function (Blueprint $table) {
             $table->unsignedInteger('human_id')->primary();
-            $table->unsignedInteger('study_group_id');
-            $table->boolean('has_scholarship');
+            $table->unsignedInteger('study_group_id')->nullable();
+            $table->boolean('has_scholarship')->nullable();
         });
 
         $this->getSchemaBuilder()->create('instructors', function (Blueprint $table) {
             $table->unsignedInteger('human_id')->primary();
-            $table->unsignedInteger('rank_id');
-            $table->decimal('salary');
+            $table->unsignedInteger('rank_id')->nullable();
+            $table->decimal('salary')->nullable();
         });
     }
 
