@@ -1,0 +1,36 @@
+{
+    "name": "illuminatech/db-role",
+    "description": "Provides support for Eloquent relation role (table inheritance) composition in Laravel",
+    "keywords": ["laravel", "eloquent", "role", "relation", "table", "inheritance"],
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/illuminatech/db-role/issues",
+        "wiki": "https://github.com/illuminatech/db-role/wiki",
+        "source": "https://github.com/illuminatech/db-role"
+    },
+    "authors": [
+        {
+            "name": "Paul Klimov",
+            "email": "klimov.paul@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/database": "^5.6",
+        "illuminate/events": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Illuminatech\\DbRole\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Illuminatech\\DbRole\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
