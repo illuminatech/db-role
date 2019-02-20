@@ -12,8 +12,67 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * InheritRole allows its owner .
+ * InheritRole provides support for Eloquent relation role composition, which is also known as table inheritance.
+ * For example: the database of the University, which have 'students' and 'instructors', which a both 'humans'.
  *
+ * Master role inheritance:
+ *
+ * ```php
+ * class Student extends Human // extending `Human` - not `Model`!
+ * {
+ *     use InheritRole;
+ *
+ *     protected function roleRelationName(): string
+ *     {
+ *         return 'studentRole';
+ *     }
+ *
+ *     protected function roleMarkingAttributes(): array
+ *     {
+ *         return [
+ *             'role_id' => Human::ROLE_STUDENT,
+ *         ];
+ *     }
+ *
+ *     public function studentRole(): HasOne
+ *     {
+ *         // Here `StudentRole` is and Eloquent model, which uses 'students' table :
+ *         return $this->hasOne(StudentRole::class, 'human_id');
+ *     }
+ * }
+ * ```
+ *
+ * Slave role inheritance:
+ *
+ * ```php
+ * use Illuminate\Database\Eloquent\Model;
+ *
+ * class Instructor extends Model // do not extend `Human`!
+ * {
+ *     protected $primaryKey = 'human_id';
+ *
+ *     public $incrementing = false;
+ *
+ *     protected function roleRelationName(): string
+ *     {
+ *         return 'human';
+ *     }
+ *
+ *     protected function roleMarkingAttributes(): array
+ *     {
+ *         return [
+ *             'role_id' => Human::ROLE_INSTRUCTOR,
+ *         ];
+ *     }
+ *
+ *     public function human(): BelongsTo
+ *     {
+ *         return $this->belongsTo(Human::class);
+ *     }
+ * }
+ * ```
+ *
+ * @see \Illuminate\Database\Eloquent\Relations\HasOne
  * @see \Illuminate\Database\Eloquent\Relations\BelongsTo
  *
  * @mixin \Illuminate\Database\Eloquent\Model
@@ -27,12 +86,34 @@ trait InheritRole
      * @var bool whether retrieving of the attribute from role model is in process.
      * This flag exists to avoid possible infinite recursion.
      * @see getRoleRelationModel()
-     * @see getAttribute()
+     * @see allowAttributeForwardToRoleModel()
      */
     private $resolvingRoleRelationModel = false;
 
+    /**
+     * Defines the name of the relation, which corresponds to role entity.
+     * Such relation should be either `HasOne` or `BelongsTo`.
+     *
+     * @return string name of relation, which corresponds to role entity.
+     */
     abstract protected function roleRelationName(): string;
 
+    /**
+     * Defines attribute values, which should be applied to the role main entity separating its records,
+     * which belong to different roles.
+     * For example:
+     *
+     * ```php
+     * [
+     *     'role_id' => Human::ROLE_STUDENT
+     * ]
+     * ```
+     *
+     * For `HasOne` as role relation, these attributes will be applied to this record, for `BelongsTo` - to the
+     * related one.
+     *
+     * @return array role attribute values.
+     */
     protected function roleMarkingAttributes(): array
     {
         return [];
