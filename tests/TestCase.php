@@ -94,10 +94,17 @@ class TestCase extends \PHPUnit\Framework\TestCase
         $this->getConnection()->table('humans')->insert([
             'name' => 'Mark',
             'address' => 'Wall Street',
+            'role' => 'student',
         ]);
         $this->getConnection()->table('humans')->insert([
             'name' => 'Michael',
             'address' => '1st Avenue',
+            'role' => 'student',
+        ]);
+        $this->getConnection()->table('humans')->insert([
+            'name' => 'John',
+            'address' => '2st Avenue',
+            'role' => 'instructor',
         ]);
     }
 }

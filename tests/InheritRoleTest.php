@@ -160,4 +160,12 @@ class InheritRoleTest extends TestCase
 
         $this->assertFalse(Human::query()->where(['id' => $model->human_id])->exists());
     }
+
+    public function testRoleDefaultScope()
+    {
+        $this->assertEquals(
+            Human::query()->where('role', '=', 'student')->count(),
+            Student::query()->count()
+        );
+    }
 }

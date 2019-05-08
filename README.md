@@ -153,42 +153,8 @@ class Student extends Human // extending `Human` - not `ActiveRecord`!
 
 The main benefit of this approach is that role class directly inherits all methods and logic from the base one.
 However, you'll need to declare an extra Eloquent class, which corresponds the role table.
-Yet another problem is that you'll need to separate 'Student' records from 'Instructor' ones for the search process.
-Without following code, it will return all 'Human' records, both 'Student' and 'Instructor':
-
-```php
-<?php
-
-$students = Student::query()->get();
-```
-
-The solution for this could be introduction of special column 'role' in the 'humans' table and usage of the default
-scope:
-
-```php
-<?php
-
-use Illuminate\Database\Eloquent\Builder;
-
-class Student extends Human
-{
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('role', function (Builder $builder) {
-            $builder->where('role', '=', 'student');
-        });
-    }
-    
-    // ...
-}
-```
+In order separate 'Student' records from 'Instructor' ones during the search process a default scope named 'inherit-role'
+automatically defined adding `roleMarkingAttributes()` to the query 'where' condition.
 
 This approach should be chosen in case most functionality depends on the 'Human' attributes.
 

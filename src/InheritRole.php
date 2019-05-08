@@ -8,6 +8,7 @@
 namespace Illuminatech\DbRole;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -173,7 +174,7 @@ trait InheritRole
 
             // Slave :
             if ($relation instanceof BelongsTo) {
-                if (! $model->relationLoaded($roleRelationName) && $model->{$relation->getForeignKey()} !== null) {
+                if (! $model->relationLoaded($roleRelationName) && $model->{$relation->getForeignKeyName()} !== null) {
                     return;
                 }
 
@@ -185,7 +186,7 @@ trait InheritRole
 
                 $roleModel->save();
 
-                $model->{$relation->getForeignKey()} = $roleModel->{$relation->getOwnerKey()};
+                $model->{$relation->getForeignKeyName()} = $roleModel->{$relation->getOwnerKeyName()};
 
                 return;
             }
@@ -248,6 +249,25 @@ trait InheritRole
             }
 
             $model->resolvingRoleRelationModel = false;
+        });
+
+        static::addGlobalScope('inherit-role', function (Builder $builder) {
+            /* @var $model \Illuminate\Database\Eloquent\Model|static */
+            $model = $builder->getModel();
+
+            $roleRelationName = $model->roleRelationName();
+
+            $relation = $model->{$roleRelationName}();
+
+            if ($relation instanceof HasOne) {
+                // Master :
+                $roleAttributes = $model->roleMarkingAttributes();
+                if (! empty($roleAttributes)) {
+                    $builder->where($roleAttributes);
+                }
+            }
+
+            return $builder;
         });
     }
 
