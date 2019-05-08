@@ -82,7 +82,7 @@ CREATE TABLE `instructors`
 ```
 
 This extension introduces [[\Illuminatech\DbRole\InheritRole]] trait, which allows role relation based Eloquent inheritance.
-In oder to make it work, first of all, you should create an Eloquent class for the base table, in our example it
+In order to make it work, first of all, you should create an Eloquent class for the base table, in our example it
 will be 'humans':
 
 ```php
@@ -109,7 +109,7 @@ There are 2 different ways for such classes composition:
 
 ## Master role inheritance <span id="master-role-inheritance"></span>
 
-This approach assumes role Eloquent class be descendant of the base role class, using 'has-one' relation to the slave one.
+This approach assumes role Eloquent class to be a descendant of the base role class, using 'has-one' relation to the slave one.
 
 ```php
 <?php
@@ -117,7 +117,7 @@ This approach assumes role Eloquent class be descendant of the base role class, 
 use Illuminatech\DbRole\InheritRole;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Student extends Human // extending `Human` - not `ActiveRecord`!
+class Student extends Human // extending `Human` - not `Model`!
 {
     use InheritRole;
 
@@ -153,15 +153,15 @@ class Student extends Human // extending `Human` - not `ActiveRecord`!
 
 The main benefit of this approach is that role class directly inherits all methods and logic from the base one.
 However, you'll need to declare an extra Eloquent class, which corresponds the role table.
-In order separate 'Student' records from 'Instructor' ones during the search process a default scope named 'inherit-role'
-automatically defined adding `roleMarkingAttributes()` to the query 'where' condition.
+In order separate 'Student' records from 'Instructor' ones during the search process, a default scope named 'inherit-role'
+automatically defined, adding `roleMarkingAttributes()` to the query 'where' condition.
 
 This approach should be chosen in case most functionality depends on the 'Human' attributes.
 
 
 ## Slave role inheritance <span id="slave-role-inheritance"></span>
 
-This approach assumes role Eloquent class does not extends the base one, but relates to it via 'belongs-to':
+This approach assumes a role Eloquent class does not extends the base one, but relates to it via 'belongs-to':
 
 ```php
 <?php
@@ -214,7 +214,7 @@ class Instructor extends Model // do not extend `Human`!
 ```
 
 This approach does not require extra Eloquent class for functioning, and it does not need default scope specification.
-It does not directly inherit logic declared in the base ActiveRecord, however any custom method declared in the related
+It does not directly inherit logic declared in the base Eloquent model, however any custom method declared in the related
 class will be available via magic method `__call()` mechanism. Thus, if class `Human` has method `sayHello()`, you are
 able to invoke it through `Instructor` instance.
 
@@ -237,7 +237,7 @@ echo $model->name; // equals to $model->human->name
 ```
 
 However, this will work only for the attributes, which have been explicitly defined at related model via [[\Illuminate\Database\Eloquent\Model::$fillable]]
-or [[\Illuminate\Database\Eloquent\Model::$guarded]]. Thus in order to make example from above function classes used for
+or [[\Illuminate\Database\Eloquent\Model::$guarded]]. Thus in order to make example from above function, classes used for
 the relations should be defined in following way:
 
 ```php
@@ -343,7 +343,7 @@ $model = new Instructor();
 echo $model->sayHello('John'); // outputs: 'Hello, John'
 ```
 
-This feature allows to inherit logic from the base role model in case of using 'slave' behavior setup approach.
+This feature allows to inherit logic from the base role model in case of using 'slave' approach.
 However, this works both for the 'master' and 'slave' role approaches.
 
 
