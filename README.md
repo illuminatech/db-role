@@ -10,8 +10,8 @@ This extension provides support for Eloquent relation role (table inheritance) c
 
 For license information check the [LICENSE](LICENSE.md)-file.
 
-[![Latest Stable Version](https://poser.pugx.org/illuminatech/db-role/v/stable.png)](https://packagist.org/packages/illuminatech/db-role)
-[![Total Downloads](https://poser.pugx.org/illuminatech/db-role/downloads.png)](https://packagist.org/packages/illuminatech/db-role)
+[![Latest Stable Version](https://img.shields.io/packagist/v/illuminatech/db-role.svg)](https://packagist.org/packages/illuminatech/db-role)
+[![Total Downloads](https://img.shields.io/packagist/dt/illuminatech/db-role.svg)](https://packagist.org/packages/illuminatech/db-role)
 [![Build Status](https://travis-ci.org/illuminatech/db-role.svg?branch=master)](https://travis-ci.org/illuminatech/db-role)
 
 
@@ -81,7 +81,7 @@ CREATE TABLE `instructors`
 ) ENGINE InnoDB;
 ```
 
-This extension introduces [[\Illuminatech\DbRole\InheritRole]] trait, which allows role relation based Eloquent inheritance.
+This extension introduces `\Illuminatech\DbRole\InheritRole` trait, which allows role relation based Eloquent inheritance.
 In order to make it work, first of all, you should create an Eloquent class for the base table, in our example it
 will be 'humans':
 
@@ -101,7 +101,7 @@ class Human extends Model
 }
 ```
 
-Then you will be able to compose Eloquent classes, which implements role-based inheritance using [[\Illuminatech\DbRole\InheritRole]].
+Then you will be able to compose Eloquent classes, which implements role-based inheritance using `\Illuminatech\DbRole\InheritRole`.
 There are 2 different ways for such classes composition:
  - Master role inheritance
  - Slave role inheritance
@@ -223,8 +223,8 @@ This approach should be chosen in case most functionality depends on the 'Instru
 
 ## Accessing role attributes <span id="accessing-role-attributes"></span>
 
-After being attached, [[\Illuminatech\DbRole\InheritRole]] provides access to the properties of the model bound by relation,
-which is specified via [[\Illuminatech\DbRole\InheritRole::roleRelationName()]], as they were the main one:
+After being attached, `\Illuminatech\DbRole\InheritRole` provides access to the properties of the model bound by relation,
+which is specified via `\Illuminatech\DbRole\InheritRole::roleRelationName()`, as they were the main one:
 
 ```php
 <?php
@@ -236,8 +236,8 @@ $model = Instructor::query()->first();
 echo $model->name; // equals to $model->human->name
 ```
 
-However, this will work only for the attributes, which have been explicitly defined at related model via [[\Illuminate\Database\Eloquent\Model::$fillable]]
-or [[\Illuminate\Database\Eloquent\Model::$guarded]]. Thus in order to make example from above function, classes used for
+However, this will work only for the attributes, which have been explicitly defined at related model via `\Illuminate\Database\Eloquent\Model::$fillable`
+or `\Illuminate\Database\Eloquent\Model::$guarded`. Thus in order to make example from above function, classes used for
 the relations should be defined in following way:
 
 ```php
@@ -313,7 +313,7 @@ var_dump($model->human); // outputs object
 
 ## Accessing role methods <span id="accessing-role-methods"></span>
 
-Any non-static method declared in the model related via [[\Illuminatech\DbRole\InheritRole::roleRelationName()]] can be accessed
+Any non-static method declared in the model related via `\Illuminatech\DbRole\InheritRole::roleRelationName()` can be accessed
 from the owner model:
 
 ```php
@@ -373,7 +373,7 @@ $student->delete(); // Deletes one record from 'humans' table and one record fro
 
 ## Querying role records <span id="querying-role-records"></span>
 
-[[\Illuminatech\DbRole\InheritRole] works through relations. Thus, in order to make role attributes feature work,
+`\Illuminatech\DbRole\InheritRole` works through relations. Thus, in order to make role attributes feature work,
 it will perform an extra query to retrieve the role slave or master model, which may produce performance impact
 in case you are working with several models. In order to reduce number of queries you may use `with()` on the
 role relation:
@@ -425,9 +425,9 @@ you can use `join()` method.
 
 ## Creating role setup web interface <span id="creating-role-setup-web-interface"></span>
 
-Figuratively speaking, [[\Illuminatech\DbRole\InheritRole]] merges 2 Eloquent classes into a single one.
+Figuratively speaking, `\Illuminatech\DbRole\InheritRole` merges 2 Eloquent classes into a single one.
 This means you don't need anything special, while creating web interface for their editing.
-However, you should remember to add role attributes to the [[\Illuminate\Database\Eloquent\Model::$fillable]] list
+However, you should remember to add role attributes to the `\Illuminate\Database\Eloquent\Model::$fillable` list
 in order to make them available for mass assignment.
 
 ```php

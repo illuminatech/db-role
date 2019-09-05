@@ -1,7 +1,7 @@
 <?php
 /**
  * @link https://github.com/illuminatech
- * @copyright Copyright (c) 2015 Illuminatech
+ * @copyright Copyright (c) 2019 Illuminatech
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  */
 
@@ -121,7 +121,7 @@ trait InheritRole
     }
 
     /**
-     * Returns the record related via [[roleRelation]] relation.
+     * Returns the record related via {@see roleRelation} relation.
      * If no related record exists - new one will be instantiated.
      *
      * @return \Illuminate\Database\Eloquent\Model role related model.
