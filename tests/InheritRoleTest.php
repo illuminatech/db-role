@@ -2,9 +2,9 @@
 
 namespace Illuminatech\DbRole\Test;
 
+use Illuminatech\DbRole\Test\Support\Instructor;
 use Illuminatech\DbRole\Test\Support\Human;
 use Illuminatech\DbRole\Test\Support\Student;
-use Illuminatech\DbRole\Test\Support\Instructor;
 use Illuminatech\DbRole\Test\Support\StudentRole;
 
 class InheritRoleTest extends TestCase

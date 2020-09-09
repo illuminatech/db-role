@@ -2,8 +2,8 @@
 
 namespace Illuminatech\DbRole\Test\Support;
 
-use Illuminatech\DbRole\InheritRole;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminatech\DbRole\InheritRole;
 
 /**
  * @property StudentRole $studentRole

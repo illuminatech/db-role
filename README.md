@@ -114,8 +114,8 @@ This approach assumes role Eloquent class to be a descendant of the base role cl
 ```php
 <?php
 
-use Illuminatech\DbRole\InheritRole;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminatech\DbRole\InheritRole;
 
 class Student extends Human // extending `Human` - not `Model`!
 {
@@ -166,9 +166,9 @@ This approach assumes a role Eloquent class does not extends the base one, but r
 ```php
 <?php
 
-use Illuminatech\DbRole\InheritRole;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminatech\DbRole\InheritRole;
 
 class Instructor extends Model // do not extend `Human`!
 {
@@ -319,8 +319,8 @@ from the owner model:
 ```php
 <?php
 
-use Illuminatech\DbRole\InheritRole;
 use Illuminate\Database\Eloquent\Model;
+use Illuminatech\DbRole\InheritRole;
 
 class Human extends Model
 {
@@ -397,8 +397,8 @@ You may apply 'with' for the role relation as default scope for the Eloquent que
 ```php
 <?php
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class Instructor extends Model
 {
@@ -433,8 +433,8 @@ in order to make them available for mass assignment.
 ```php
 <?php
 
-use Illuminatech\DbRole\InheritRole;
 use Illuminate\Database\Eloquent\Model;
+use Illuminatech\DbRole\InheritRole;
 
 class Instructor extends Model
 {
@@ -458,8 +458,8 @@ Then controller, which performs the data storage may look like following:
 ```php
 <?php
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class InstructorController extends Controller
 {

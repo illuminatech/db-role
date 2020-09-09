@@ -2,9 +2,9 @@
 
 namespace Illuminatech\DbRole\Test\Support;
 
-use Illuminatech\DbRole\InheritRole;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminatech\DbRole\InheritRole;
 
 /**
  * @property int $human_id
