@@ -12,7 +12,7 @@ For license information check the [LICENSE](LICENSE.md)-file.
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/illuminatech/db-role.svg)](https://packagist.org/packages/illuminatech/db-role)
 [![Total Downloads](https://img.shields.io/packagist/dt/illuminatech/db-role.svg)](https://packagist.org/packages/illuminatech/db-role)
-[![Build Status](https://travis-ci.org/illuminatech/db-role.svg?branch=master)](https://travis-ci.org/illuminatech/db-role)
+[![Build Status](https://github.com/illuminatech/db-role/workflows/build/badge.svg)](https://github.com/illuminatech/db-role/actions)
 
 
 Installation
