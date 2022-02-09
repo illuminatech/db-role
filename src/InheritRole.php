@@ -323,7 +323,7 @@ trait InheritRole
      * @param  mixed  $offset
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         if ($this->allowAttributeForwardToRoleModel($offset)) {
             $this->getRoleRelationModel()->offsetUnset($offset);
