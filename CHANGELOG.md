@@ -1,6 +1,12 @@
 Eloquent Role Inheritance Change Log
 ====================================
 
+1.1.4 Under Development
+-----------------------
+
+- Enh: Added support for "illuminate/database" 10.0 (klimov-paul)
+
+
 1.1.3, February 9, 2022
 -----------------------
 
